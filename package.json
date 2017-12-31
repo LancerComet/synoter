@@ -1,0 +1,18 @@
+{
+  "name": "synote-bloger",
+  "version": "1.0.0",
+  "description": "A app to get data from Synology NoteStation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^8.5.2",
+    "sqlite": "^2.9.0",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.6.2"
+  }
+}
