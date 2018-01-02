@@ -1,8 +1,5 @@
 import * as fs from 'fs'
-import { promisify } from 'util'
-
-const fsExistAsync = promisify(fs.exists)
-const fsReadFileAsync = promisify(fs.readFile)
+import { isError } from 'util';
 
 /**
  * Check Whether a file exists in async.
@@ -10,19 +7,15 @@ const fsReadFileAsync = promisify(fs.readFile)
  * @param {string} filePath
  * @returns {Promise<boolean>}
  */
-async function fileExistAsync (filePath: string): Promise<IAsyncResult<boolean>> {
-  try {
-    const result = await fsExistAsync(filePath)
-    return {
-      data: result,
-      error: null
-    }
-  } catch (error) {
-    return {
-      data: null,
-      error
-    }
-  }
+function fileExistAsync (filePath: string): Promise<IAsyncResult<boolean>> {
+  return new Promise((resolve, reject) => {
+    fs.exists(filePath, isExist => {
+      resolve({
+        data: isExist,
+        error: null
+      })
+    })
+  })
 }
 
 /**
@@ -31,21 +24,24 @@ async function fileExistAsync (filePath: string): Promise<IAsyncResult<boolean>>
  * @param {any} filePath
  * @returns {Promise<IAsyncResult<string>>}
  */
-async function readFileAsync (filePath): Promise<IAsyncResult<string>> {
-  try {
-    const content = await fsReadFileAsync(filePath, {
+function readFileAsync (filePath): Promise<IAsyncResult<string>> {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, {
       encoding: 'utf-8'
+    }, (error, data) => {
+      if (error) {
+        return reject({
+          data: '',
+          error
+        })
+      }
+
+      resolve({
+        data,
+        error: null
+      })
     })
-    return {
-      data: content,
-      error: null
-    }
-  } catch (error) {
-    return {
-      data: null,
-      error
-    }
-  }
+  })
 }
 
 export {
