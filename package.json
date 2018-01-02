@@ -1,20 +1,25 @@
 {
-  "name": "synote-bloger",
+  "name": "synoter",
   "version": "1.0.0",
-  "description": "A app to get data from Synology NoteStation.",
+  "description": "A node library to get data from Synology NoteStation.",
   "main": "index.js",
   "scripts": {
     "test": "ts-node ./test/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["synology", "notestation"],
+  "author": {
+    "name": "LancerComet",
+    "email": "chw644@hotmail.com"
+  },
+  "license": "MIT",
   "dependencies": {
-    "@types/node": "^8.5.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-register": "^6.26.0",
-    "sqlite": "^2.9.0",
-    "ts-node": "^4.1.0",
-    "typescript": "^2.6.2"
+    "@types/node": "8.5.2",
+    "sqlite": "2.9.0",
+    "ts-node": "4.1.0",
+    "typescript": "2.6.2"
+  },
+  "devDependencies": {
+    "babel-polyfill": "6.26.0",
+    "babel-register": "6.26.0"
   }
 }
