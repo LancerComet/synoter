@@ -2,6 +2,8 @@
 
 `Synoter` is designed to get data from `Synology NoteStation`.
 
+> This article describes how NoteStation works in DSM 6. For now I dont know what's going on in DSM 7, I have to look into this.
+
 ## How it works?
 
 `Synology NoteStation` is an official note-taking app for NAS system `DSM`. But unfortunately, unlinke other apps such as `AudioStaion` or `FileStation`, there is no official api for further development, so you can't customize your NoteStation for your own purpose.
@@ -14,11 +16,11 @@ After some rearch, I have found something useful:
 
 3. The real stuffs are stored in `/<volume_name>/@SynoDrive/NoteStation`. Each folder holds a note, and the name of folder is the `object_id` in PostgreSQL.
 
-So the only thing we need to do is:
+So if you want to take something out of the NoteStation, the only thing we need to do is:
 
-1. Find out all notes that are tagged with "blog" or something else from `fts.db` and get their `object_id`.
+1. Find out all notes that are tagged with "blog" (or anything you like) from `fts.db` and get their `object_id`.
 
-2. Read notes from `/<volume_name>/@SynoDrive/NoteStation/<object_id>`.
+2. Read notes from `/<volume_name>/@SynoDrive/NoteStation/<object_id>` by using `object_id` from above.
 
 And now we've got everything we need.
 
