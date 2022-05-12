@@ -1,5 +1,4 @@
 import * as fs from 'fs'
-import { isError } from 'util';
 
 /**
  * Check Whether a file exists in async.
@@ -7,15 +6,8 @@ import { isError } from 'util';
  * @param {string} filePath
  * @returns {Promise<boolean>}
  */
-function fileExistAsync (filePath: string): Promise<IAsyncResult<boolean>> {
-  return new Promise((resolve, reject) => {
-    fs.exists(filePath, isExist => {
-      resolve({
-        data: isExist,
-        error: null
-      })
-    })
-  })
+function fileExist (filePath: string): boolean {
+  return fs.existsSync(filePath)
 }
 
 /**
@@ -24,32 +16,21 @@ function fileExistAsync (filePath: string): Promise<IAsyncResult<boolean>> {
  * @param {any} filePath
  * @returns {Promise<IAsyncResult<string>>}
  */
-function readFileAsync (filePath): Promise<IAsyncResult<string>> {
+function readFileAsync (filePath): Promise<string> {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, {
       encoding: 'utf-8'
     }, (error, data) => {
       if (error) {
-        return reject({
-          data: '',
-          error
-        })
+        return reject(error)
       }
 
-      resolve({
-        data,
-        error: null
-      })
+      resolve(data)
     })
   })
 }
 
 export {
-  fileExistAsync,
+  fileExist,
   readFileAsync
-}
-
-interface IAsyncResult<T> {
-  data: T
-  error: Error
 }
